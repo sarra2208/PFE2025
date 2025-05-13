@@ -1,0 +1,45 @@
+
+.cursor-pointer {
+    cursor: pointer;
+    transition: all 0.2s ease;
+    
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.03);
+      transform: translateY(-1px);
+    }
+  }
+  
+  .table-hover tbody tr:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card {
+    border-radius: 10px;
+    overflow: hidden;
+    
+    .card-header {
+      border-radius: 0 !important;
+    }
+  }
+  
+  mat-form-field {
+    .mat-form-field-wrapper {
+      padding-bottom: 0;
+    }
+    
+    .mat-form-field-outline {
+      background-color: white;
+      border-radius: 5px;
+    }
+  }
+  
+  .bg-light {
+    background-color: #f8f9fa !important;
+  }
+  
+  .screen{
+    max-width: 100%;
+    width: 100%;
+    min-height: 55vh !important; 
+    overflow: auto;
+  }

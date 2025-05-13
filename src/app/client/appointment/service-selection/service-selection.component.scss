@@ -1,0 +1,37 @@
+// CARD STYLE GÉNÉRIQUE (cliniques & services)
+
+.service-card {
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+  cursor: pointer;
+}
+
+
+.service-card:hover {
+  transform: translateY(-1px);
+  background-color: #1976d219;
+}
+
+
+.service-card.selected {
+  border: 2px solid #1976d2;
+  box-shadow: 0 6px 16px rgba(25, 118, 210, 0.2);
+}
+
+// AVATARS
+
+.service-avatar-wrapper {
+  width: 70px;
+  height: 70px;
+  overflow: hidden;
+  border-radius: 50%;
+  box-shadow: 0 1px 20px rgba(25, 118, 210, 0.016);
+}
+
+.service-avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

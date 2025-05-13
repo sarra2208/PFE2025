@@ -1,0 +1,48 @@
+<div class="row" #more>
+
+@defer(on viewport(more)){ 
+
+    @for (clinic of clinics; track clinic.id) {
+      <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+        <mat-card
+          class="clinic-card"
+          [ngClass]="{ 'selected': selectedClinicId === clinic.id }"
+          (click)="selectClinic(clinic.id)"
+        >
+          <mat-card-header>
+            <div mat-card-avatar class="clinic-avatar-wrapper">
+              <img
+                [src]="clinic.imageDir || clinicDefaultImage"
+                alt="Clinic Image"
+                class="clinic-avatar"
+              />
+            </div>
+            <mat-card-title>{{ clinic.name }}</mat-card-title>
+            <mat-card-subtitle>
+              <i class="bi bi-geo-alt-fill" style="color:rgb(22, 67, 163)"></i>  {{ clinic.address }}
+            </mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <p>
+              <mat-icon class="me-1 icon-muted">phone</mat-icon>
+              {{ clinic.phone }}
+            </p>
+            <p>
+              <mat-icon class="me-1 icon-muted">email</mat-icon>
+              {{ clinic.email }}
+            </p>
+            <div class="schedule-chip">
+              <mat-icon class="me-1 icon-primary">schedule</mat-icon>
+              <span>Mon-Fri: 8AM - 8PM</span>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    }
+    @empty {
+      <p class="text-muted">No clinics found.</p>
+    }
+  }
+  @placeholder{<h1>Loading …</h1>}
+  @error { <h1 class="danger">Load data failure </h1> } 
+  </div>

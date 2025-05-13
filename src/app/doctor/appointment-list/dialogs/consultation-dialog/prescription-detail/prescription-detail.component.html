@@ -1,0 +1,138 @@
+
+
+          
+          <div class="card-body p-0 ">
+            <mat-sidenav-container [ngClass]="{ 'screen': isOpen }">
+              <mat-sidenav #sidenav [mode]="mode.value" position="end" class="p-3 border-start" style="width: 400px;">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                  <span class="text-secondery ">
+                    <i class="fas fa-edit "></i>{{dialogTitle}}
+                  </span>
+                  <div>
+                    @if (!isNewEvent) {
+                      <button mat-icon-button class="text-danger me-2" 
+                              (click)="deletePrescription()" 
+                              matTooltip="Delete">
+                        <i class="fas fa-trash-alt"></i>
+                      </button>
+                    }
+                    <button mat-icon-button (click)="closeSlider()" class="text-secondary">
+                      <i class="fas fa-times"></i>
+                    </button>
+                  </div>
+                </div>
+                
+                <form [formGroup]="prescriptionForm" class="px-2">
+                  <div class="mb-3">
+                    <mat-form-field appearance="outline" class="w-100">
+                      <mat-label><i class="fas  fa-heartbeat me-2"></i>Name</mat-label>
+                      <input matInput formControlName="name">
+                    </mat-form-field>
+                  </div>
+                  <div class="mb-3">
+                    <mat-form-field appearance="outline" class="w-100">
+                      <mat-label><i class="fas  fa-heartbeat me-2" ></i>packages</mat-label>
+                      <input matInput formControlName="packages" type="number">
+                    </mat-form-field>
+                  </div>
+                  <div class="mb-3">
+                    <mat-form-field appearance="outline" class="w-100">
+                      <mat-label><i class="fas fa-pills me-2"></i>Dosage</mat-label>
+                      <input matInput formControlName="dosage">
+                    </mat-form-field>
+                  </div>
+                  
+                  <div class="mb-3">
+                    <mat-form-field appearance="outline" class="w-100">
+                      <mat-label><i class="fas fa-clock me-2"></i>Frequency</mat-label>
+                      <input matInput formControlName="frequency">
+                    </mat-form-field>
+                  </div>
+                  
+                  <div class="mb-3">
+                    <mat-form-field appearance="outline" class="w-100">
+                      <mat-label><i class="fas fa-calendar-day me-2"></i>Duration</mat-label>
+                      <input matInput formControlName="duration">
+                    </mat-form-field>
+                  </div>
+                  
+                  <div class="d-grid gap-2 mt-4">
+                    @if (isNewEvent) {
+                      <button type="button" class="btn btn-success" (click)="savePrescriptionDtail()">
+                        <i class="fas fa-save me-2"></i>Save
+                      </button>
+                    }
+                    @if (!isNewEvent) {
+                      <button type="button" class="btn btn-warning" (click)="editPrescription()">
+                        <i class="fas fa-sync-alt me-2"></i>Update
+                      </button>
+                    }
+                  </div>
+                </form>
+              </mat-sidenav>
+              
+              <mat-sidenav-content>
+                <div class="table-responsive">
+                  <table class="table table-hover mb-0">
+                    <thead class="table-dark">
+                      <tr>
+                        <th width="10%">ID</th>
+                        <th width="20%">Name</th>
+                         <th width="10%">packages</th>
+                        <th width="15%">Dosage</th>
+                        <th width="15%">Frequency</th>
+                        <th width="15%">Duration</th>
+                        <th width="15%">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      @for (prescription of prescriptions; track prescription.id) {
+                        <tr (click)="prescriptionClick(prescription)" class="cursor-pointer">
+                          <td class="fw-bold text-primary">{{$index+1}}</td>
+                          <td>{{prescription.name}}</td>
+                          <td>{{prescription.packages}}</td>
+                          <td>{{prescription.dosage}}</td>
+                          <td>{{prescription.frequency}}</td>
+                          <td>{{prescription.duration}}</td>
+                          <td class="d-flex flex-row">
+                            <button mat-icon-button color="primary" class="me-1">
+                              <i class="fas fa-eye"></i>
+                            </button>
+                            <button mat-icon-button color="accent">
+                              <i class="fas fa-edit"></i>
+                            </button>
+                          </td>
+                        </tr>
+                      }
+                    </tbody>
+                  </table>
+                  
+                  @if (prescriptions.length === 0) {
+                    <div class="text-center py-5 bg-light">
+                      <i class="fas fa-prescription-bottle fa-3x text-muted mb-3"></i>
+                      <h4 class="text-muted">No prescriptions found</h4>
+                      <button mat-raised-button color="primary" (click)="addNewPrescription()">
+                        <i class="fas fa-plus me-2"></i>Add a prescription
+                      </button>
+                    </div>
+                  }
+                </div>
+              </mat-sidenav-content>
+            </mat-sidenav-container>
+          </div>
+          
+          <div class="card-footer bg-light d-flex justify-content-between">
+            <small class="text-muted">Total: {{prescriptions.length}} prescriptions</small>
+            <div>
+                <button mat-raised-button color="accent" 
+                    class="text-dark"
+                    (click)="addNewPrescription()">
+              <i class="fas fa-plus me-1"></i> Add Medication 
+            </button>
+              <button mat-button color="primary" class="me-2">
+                <i class="fas fa-print me-1"></i> Print
+              </button>
+              <button mat-button color="accent">
+                <i class="fas fa-file-export me-1"></i> Export
+              </button>
+            </div>

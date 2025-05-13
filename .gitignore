@@ -1,0 +1,14 @@
+# Node modules
+node_modules/
+# Builds
+dist/
+out-tsc/
+# Angular cache
+.angular/
+# IDEs
+.vscode/
+.idea/
+# Logs
+*.log
+# Env
+.env

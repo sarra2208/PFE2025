@@ -1,0 +1,216 @@
+  <div class="addContainer">
+    <div class="modalHeader">
+      <div class="editRowModal">
+        <div class="modalHeader clearfix">
+          <img [src]="employees.imageDir || imageByDefault " alt="avatar" height="50" width="50" class="rounded-circle">
+          <div class="modal-about">
+            {{ dialogTitle }}
+          </div>
+        </div>
+      </div>
+      <button mat-icon-button (click)="dialogRef.close()" class="modal-close-button" aria-label="Close dialog">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+
+    <div mat-dialog-content>
+      <form class="register-form m-4" [formGroup]="employeesForm" (ngSubmit)="submit()">
+        <div class="row">
+          <!-- First Name -->
+          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>First Name</mat-label>
+              <input matInput formControlName="firstName" required>
+              <mat-icon matSuffix>face</mat-icon>
+              @if(employeesForm.get('firstName')?.hasError('required')){
+              <mat-error >
+                First Name is required
+              </mat-error>
+            }
+            </mat-form-field>
+          </div>
+
+          <!-- Last Name -->
+          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Last Name</mat-label>
+              <input matInput formControlName="lastName" required>
+              <mat-icon matSuffix>face</mat-icon>
+              @if(employeesForm.get('lastName')?.hasError('required')){
+              <mat-error >
+                Last Name is required
+              </mat-error>
+              }
+            
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <!-- Email -->
+          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Email</mat-label>
+              <input matInput formControlName="email" required>
+              <mat-icon matSuffix>email</mat-icon>
+              @if (employeesForm.get('email')?.hasError('required')) {
+              <mat-error >
+                Email is required
+              </mat-error>
+            }
+              @if (employeesForm.get('email')?.hasError('email')) {
+              <mat-error >
+                Please enter a valid email address
+              </mat-error>
+            }
+            </mat-form-field>
+          </div>
+        
+
+          <!-- Phone -->
+          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Phone</mat-label>
+              <input matInput formControlName="phone" type="number" required>
+              <mat-icon matSuffix>phone</mat-icon>
+              @if(employeesForm.get('phone')?.hasError('required')){
+              <mat-error >
+                Phone is required
+              </mat-error>
+            }
+            </mat-form-field>
+          </div>
+        </div>
+        
+      <div class="row">
+          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+            <mat-form-field class="example-full-width " appearance="outline">
+              <mat-label>CIN</mat-label>
+              <input matInput formControlName="cin" type="text" required>
+              <mat-icon matSuffix>badge</mat-icon>
+              </mat-form-field>
+          </div>
+          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Gender</mat-label>
+              <!--formControlName="gender" -->
+              <mat-select required>
+                <mat-option [value]="'Male'">
+                  Male
+                </mat-option>
+                <mat-option [value]="'Female'">
+                  Female
+                </mat-option>
+              </mat-select>
+              <mat-icon matSuffix>wc</mat-icon>
+            </mat-form-field>
+          </div>
+      </div>
+      <div class="row">
+        <!-- Hire Date -->
+        <div class="col-xl-6 col-lg-6 col-md-12 mb-2">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Hire Date</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="hireDate" required>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            @if (employeesForm.get('hireDate')?.hasError('required')) {
+            <mat-error >
+              Please select a hire date
+            </mat-error>
+          }
+          </mat-form-field>
+        </div>
+      
+        <!-- Grade -->
+        <div class="col-xl-6 col-lg-6 col-md-12 mb-2">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Grade</mat-label>
+            <mat-select formControlName="grade" required>
+              @for (grade of gradeOptions; track $index) {
+              <mat-option  [value]="grade">
+                {{ grade }}
+              </mat-option>
+            }
+            </mat-select>
+            <mat-icon matSuffix>assignment_ind</mat-icon>
+            @if(employeesForm.get('grade')?.hasError('required')){
+            <mat-error >
+              Grade is required
+            </mat-error>
+          }
+          </mat-form-field>
+        </div>
+      </div>
+      
+      @if (isDoctorSelected) {
+      <div class="col-xl-6 col-lg-6 col-md-12 mb-2" >
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Speciality</mat-label>
+          
+          <mat-select formControlName="speciality" >
+          @for (speciality of specialityOptions ; track $index) {
+            <mat-option  [value]="speciality" [id]="speciality">
+              {{ speciality }}
+            </mat-option>
+          }
+          </mat-select>
+
+          <mat-icon matSuffix>medical_services</mat-icon>
+          @if (employeesForm.get('speciality')?.hasError('required')) {
+            <mat-error>Speciality is required</mat-error>
+          }
+        </mat-form-field>
+      </div>
+    }
+      
+      
+        <div class="row">
+          <div class="col-12 mb-2">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Address</mat-label>
+              <textarea matInput formControlName="address" required></textarea>
+              <mat-icon matSuffix>location_on</mat-icon>
+              @if (employeesForm.get('address')?.hasError('required')) {
+              <mat-error >
+                Address is required
+              </mat-error>
+            }
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+            <mat-label>Upload Image</mat-label>
+            <app-file-upload 
+              formControlName="uploadImg"
+              (change)="onChangeImg()">
+            </app-file-upload>
+            @if ((imageFile && imageFile.size > maxSizeInOct ) || imgError) {
+              <div class="error-message text-red" >
+                That image is too large (max {{ maxSizeInMB }} MB). You can pick another one.
+              </div>
+            }
+          </div>
+        
+        
+        </div>
+
+
+
+
+
+        <div class="row">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+            <div class="example-button-row" align="end">
+              <button mat-raised-button color="primary" [disabled]="!employeesForm.valid"
+                [mat-dialog-close]="1"
+                (click)="confirmAdd()">Save</button>
+              <button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>

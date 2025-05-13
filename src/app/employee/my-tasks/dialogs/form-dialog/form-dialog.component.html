@@ -1,0 +1,165 @@
+<div class="addContainer">
+  <div class="modalHeader">
+    <div class="editRowModal">
+      <div class="modalHeader clearfix">
+        <div class="modal-about">
+          {{dialogTitle}}
+        </div>
+      </div>
+    </div>
+    <button mat-icon-button (click)="dialogRef.close()" class="modal-close-button" aria-label="Close dialog">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <div mat-dialog-content>
+    <form class="register-form m-4" [formGroup]="myTasksForm" (ngSubmit)="submit">
+      <div class="row">
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Task No</mat-label>
+            <input matInput formControlName="taskNo" required>
+              <mat-icon class="material-icons-two-tone color-icon p-3" matSuffix>task_alt</mat-icon>
+              @if (myTasksForm.get('taskNo')?.hasError('required')) {
+                <mat-error>
+                  Task No is required
+                </mat-error>
+              }
+            </mat-form-field>
+          </div>
+          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Project</mat-label>
+              <input matInput formControlName="project" required>
+                <mat-icon class="material-icons-two-tone color-icon p-3" matSuffix>business_center</mat-icon>
+                @if (myTasksForm.get('project')?.hasError('required')) {
+                  <mat-error>
+                    Project is required
+                  </mat-error>
+                }
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+              <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Client</mat-label>
+                <input matInput formControlName="client" required>
+                  <mat-icon class="material-icons-two-tone color-icon p-3" matSuffix>person_outline</mat-icon>
+                  @if (myTasksForm.get('client')?.hasError('required')) {
+                    <mat-error>
+                      client is required
+                    </mat-error>
+                  }
+                </mat-form-field>
+              </div>
+              <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                <mat-form-field class="example-full-width mb-3" appearance="outline">
+                  <mat-label>Status</mat-label>
+                  <mat-select formControlName="status" required>
+                    <mat-option [value]="'Open'">
+                      Open
+                    </mat-option>
+                    <mat-option [value]="'Closed'">
+                      Closed
+                    </mat-option>
+                  </mat-select>
+                  @if (myTasksForm.get('status')?.hasError('required')) {
+                    <mat-error>
+                      Select task status
+                    </mat-error>
+                  }
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                <mat-form-field class="example-full-width mb-3" appearance="outline">
+                  <mat-label>Priority</mat-label>
+                  <mat-select formControlName="priority" required>
+                    <mat-option [value]="'High'">
+                      High
+                    </mat-option>
+                    <mat-option [value]="'Medium'">
+                      Medium
+                    </mat-option>
+                    <mat-option [value]="'Low'">
+                      Low
+                    </mat-option>
+                  </mat-select>
+                  @if (myTasksForm.get('priority')?.hasError('required')) {
+                    <mat-error>
+                      Select priority
+                    </mat-error>
+                  }
+                </mat-form-field>
+              </div>
+              <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                <mat-form-field class="example-full-width mb-3" appearance="outline">
+                  <mat-label>type</mat-label>
+                  <mat-select formControlName="type" required>
+                    <mat-option [value]="'Bug'">
+                      Bug
+                    </mat-option>
+                    <mat-option [value]="'Error'">
+                      Error
+                    </mat-option>
+                    <mat-option [value]="'Development'">
+                      Development
+                    </mat-option>
+                  </mat-select>
+                  @if (myTasksForm.get('type')?.hasError('required')) {
+                    <mat-error>
+                      Select task type
+                    </mat-error>
+                  }
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label>Executor</mat-label>
+                  <input matInput formControlName="executor" required>
+                    <mat-icon class="material-icons-two-tone color-icon p-3" matSuffix>person_outline</mat-icon>
+                    @if (myTasksForm.get('executor')?.hasError('required')) {
+                      <mat-error>
+                        Executor is required
+                      </mat-error>
+                    }
+                  </mat-form-field>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Date</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="date">
+                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                      @if (myTasksForm.get('date')?.hasError('required')) {
+                        <mat-error>
+                          Please select date
+                        </mat-error>
+                      }
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class=" col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Details</mat-label>
+                      <textarea matInput formControlName="details"></textarea>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                    <div class="example-button-row" align="end">
+                      <button mat-raised-button color="primary" [disabled]="!myTasksForm.valid" [mat-dialog-close]="1"
+                      (click)="confirmAdd()">Save</button>
+                      <button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1">Cancel</button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          

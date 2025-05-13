@@ -1,0 +1,103 @@
+<div class="view-container p-4 rounded shadow-sm bg-white">
+  <div class="modal-header d-flex justify-content-between align-items-center mb-3 border-bottom pb-2">
+    <div>
+      <h2 class="h5 fw-bold mb-1 text-primary">
+        <mat-icon class="me-1">calendar_today</mat-icon>
+        Appointment Details
+      </h2>
+      <div class="text-muted small d-flex align-items-center">
+        <mat-icon class="me-1" style="font-size: 16px;">fingerprint</mat-icon>
+        ID: {{ data.appointment.id }}
+      </div>
+    </div>
+    <button mat-icon-button (click)="dialogRef.close()" aria-label="Close dialog">
+      <mat-icon class="text-muted">close</mat-icon>
+    </button>
+  </div>
+
+  <div class="appointment-details row g-3 mb-4">
+    <!-- Ligne 1 -->
+    <div class="col-md-6 d-flex align-items-start gap-2">
+      <mat-icon class="text-secondary pl ">medical_services</mat-icon>
+      <div>
+        <label class="text-muted small">Service Staff</label>
+        <div class="fw-medium text-dark">{{ data.appointment.serviceStaffId }}</div>
+      </div>
+    </div>
+
+    <div class="col-md-6 d-flex align-items-start gap-2">
+      <mat-icon class="text-secondary">person</mat-icon>
+      <div>
+        <label class="text-muted small">Patient</label>
+        <div class="fw-medium text-dark">{{ data.appointment.patientId }}</div>
+      </div>
+    </div>
+
+    <!-- Ligne 2 -->
+    <div class="col-md-6 d-flex align-items-start gap-2">
+      <mat-icon class="text-secondary">description</mat-icon>
+      <div>
+        <label class="text-muted small">Description</label>
+        <div class="fw-medium text-dark">{{ data.appointment.description || '-' }}</div>
+      </div>
+    </div>
+
+    <div class="col-md-6 d-flex align-items-start gap-2">
+      <mat-icon class="text-secondary">monitor_heart</mat-icon>
+      <div>
+        <label class="text-muted small">Type</label>
+        <div class="fw-medium text-dark">{{ data.appointment.type }}</div>
+      </div>
+    </div>
+
+    <!-- Ligne 3 -->
+    <div class="col-md-6 d-flex align-items-start gap-2">
+      <mat-icon class="text-secondary">fact_check</mat-icon>
+      <div>
+        <label class="text-muted small">Status</label>
+        <div class="fw-medium">
+          <span [class]="getStatusBadgeClass(data.appointment.status)">
+            {{ data.appointment.status }}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 d-flex align-items-start gap-2">
+      <mat-icon class="text-secondary">event</mat-icon>
+      <div>
+        <label class="text-muted small">Date</label>
+        <div class="fw-medium text-dark">{{ data.appointment.date | date:'mediumDate' }}</div>
+      </div>
+    </div>
+
+    <!-- Ligne 4 -->
+    <div class="col-md-6 d-flex align-items-start gap-2">
+      <mat-icon class="text-secondary">schedule</mat-icon>
+      <div>
+        <label class="text-muted small">Start Time</label>
+        <div class="fw-medium text-dark">{{ data.appointment.startDate | date:'shortTime' }}</div>
+      </div>
+    </div>
+
+    <div class="col-md-6 d-flex align-items-start gap-2">
+      <mat-icon class="text-secondary">timer_off</mat-icon>
+      <div>
+        <label class="text-muted small">End Time</label>
+        <div class="fw-medium text-dark">{{ data.appointment.endDate | date:'shortTime' }}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="action-buttons d-flex justify-content-end gap-2 pt-3 border-top">
+    <button mat-stroked-button color="primary" (click)="goToUserProfile()" class="d-flex align-items-center">
+      <mat-icon class="me-1">account_circle</mat-icon>
+      User Profile
+    </button>
+    <button mat-stroked-button color="accent" (click)="goToHistory()" class="d-flex align-items-center">
+      <mat-icon class="me-1">history</mat-icon>
+      History
+    </button>
+    <button mat-button color="warn" (click)="dialogRef.close()">Close</button>
+  </div>
+</div>

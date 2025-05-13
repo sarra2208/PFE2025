@@ -1,0 +1,39 @@
+.time-slot-btn {
+  min-width: 80px;
+  padding: 8px 12px;
+  border-radius: 4px;
+  text-align: center;
+  transition: all 0.3s ease;
+
+  &:hover:not(:disabled) {
+    background-color: #0d6efd;
+    color: white;
+  }
+
+  &.active {
+    background-color: #0163f7 !important;
+    color: white !important;
+    border-color: #0163f7 !important;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+  }
+
+  &:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+  }
+}
+
+::ng-deep .mat-calendar-body-cell.weekend-date .mat-calendar-body-cell-content {
+  
+  border-radius: 50%;
+  border-color: #d000000f;
+  background-color: #ff00000a;
+}
+
+::ng-deep .mat-calendar-body-cell.weekend-date .mat-calendar-body-cell-content {
+  border-radius: 50%;
+  border: 1px solid #d000000f;
+  background-color: #ff00000a;
+}
+
+

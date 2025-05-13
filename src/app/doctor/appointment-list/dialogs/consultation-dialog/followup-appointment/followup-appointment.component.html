@@ -1,0 +1,10 @@
+<p>followup-appointment works!</p>
+
+<app-choose-date   
+[unAvailableDates]="unAvailableDates"
+[shiftSchedule]="shiftSchedule"
+
+(selectedDate)="onDateSelected($event)"
+(getServiceSchedules)="getServiceSchedules($event)"
+(getTime)="getTime($event)">
+</app-choose-date>

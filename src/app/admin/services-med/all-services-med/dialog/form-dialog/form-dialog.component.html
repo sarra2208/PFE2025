@@ -1,0 +1,90 @@
+<div class="addContainer">
+  <div class="modalHeader">
+    <div class="editRowModal">
+      <div class="modalHeader clearfix">
+        <img [src]="ServiceMed.imageDir || imageByDefault" alt="ServiceMed" height="50" width="50" class="rounded-circle">
+        <div class="modal-about">
+          {{ dialogTitle }}
+        </div>
+      </div>
+    </div>
+    <button mat-icon-button (click)="dialogRef.close()" class="modal-close-button" aria-label="Close dialog">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div mat-dialog-content>
+    <form class="register-form m-4" [formGroup]="serviceForm" (ngSubmit)="submit()">
+      <div class="row">
+        <!-- Name -->
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>ServiceMed Name</mat-label>
+            <input matInput formControlName="name" required>
+            <mat-icon matSuffix>medical_services</mat-icon>
+            @if(serviceForm.get('name')?.hasError('required')) {
+              <mat-error>Service name is required</mat-error>
+            }
+          </mat-form-field>
+        </div>
+
+<!--     
+      <div class="row">
+     
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Clinic</mat-label>
+            <mat-select formControlName="clinicId" required>
+              @for (clinic of clinics; track $index) {
+              <mat-option  [value]="clinic.id">
+                {{ clinic.name }}
+              </mat-option>
+            }
+            </mat-select>
+            @if(appointmentForm.get('clinicId')?.hasError('required')){
+            <mat-error>
+              Clinic is required
+            </mat-error>
+            }
+          </mat-form-field>
+        </div> -->
+
+        <!-- Description -->
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Description</mat-label>
+            <textarea matInput formControlName="description"></textarea>
+            <mat-icon matSuffix>description</mat-icon>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!-- Image Upload -->
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+          <mat-label>Upload Image</mat-label>
+          <app-file-upload 
+            formControlName="uploadImg"
+            (change)="onChangeImg()">
+          </app-file-upload>
+          @if ((imageFile && imageFile.size > maxSizeInOct) || imgError) {
+            <div class="error-message text-red">
+              That image is too large (max {{ maxSizeInMB }} MB). You can pick another one.
+            </div>
+          }
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+          <div class="example-button-row" align="end">
+            <button mat-raised-button color="primary" [disabled]="!serviceForm.valid"
+              [mat-dialog-close]="1"
+              (click)="confirmAdd()">Save</button>
+            <button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,111 @@
+
+
+
+  <div class="addContainer">
+    <div class="modalHeader">
+      <div class="editRowModal">
+     
+            <div class="modal-about border-bottom">dialogTitle </div>
+         
+      </div>
+      <div class="action-buttons d-flex justify-content-end gap-2 pt-3 ">
+        <button mat-stroked-button color="primary" (click)="goToUserProfile()" class="d-flex align-items-center">
+          <mat-icon class="me-1">account_circle</mat-icon>
+          User Profile
+        </button>
+        <button mat-stroked-button color="accent" (click)="goToHistory()" class="d-flex align-items-center">
+          <mat-icon class="me-1">history</mat-icon>
+          History
+        </button>
+        <button mat-icon-button  color="warn"  aria-label="Close dialog"  (click)="dialogRef.close()"><mat-icon>close</mat-icon></button>
+       
+          
+    
+      </div>
+    
+
+      
+    </div>
+  
+    <div mat-dialog-content>
+      <form>
+
+
+        <mat-dialog-content class="p-3">
+         
+            <mat-horizontal-stepper [linear]="isLinear" #stepper class="w-100">
+              <mat-step [stepControl]="firstFormGroup">
+                <ng-template matStepLabel>Notes</ng-template>
+                <app-consultation-form
+                #consultationForm
+                [appointmentId]="this.data.appointment.id"
+                
+                ></app-consultation-form>
+                <button mat-raised-button color="primary" (click)="saveConsultation()" matStepperNext >Next</button>
+              </mat-step>
+          
+              <mat-step [stepControl]="secondFormGroup">
+                <form [formGroup]="secondFormGroup">
+                  <ng-template matStepLabel>Prescription</ng-template>
+                
+                    <app-prescription-detail
+                    #prescriptionForm
+                    ></app-prescription-detail>
+                 
+                  <div class="d-flex justify-between mt-2">
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-raised-button color="primary" matStepperNext>Next</button>
+                  </div>
+                </form>
+              </mat-step>
+          
+
+
+              <mat-step [stepControl]="medicalTestVal">
+                <ng-template matStepLabel>Notes</ng-template>
+              
+
+                <app-medical-test
+                #medicalTestForm
+                ></app-medical-test>
+                <!-- (click)="" (change)=""
+                        [checked]=""  -->
+                <mat-checkbox class="tbl-checkbox"  [checked]="isFollowUp"   (change)="isFollowUp = $event.checked">
+                  Flow up appointment  </mat-checkbox><br>
+                <button mat-raised-button color="primary" (click)="saveConsultation()"  matStepperNext >Next</button>
+              </mat-step>
+
+
+              @if(isFollowUp){
+              <mat-step>
+                <ng-template matStepLabel>Follow up Appointment</ng-template>
+
+               
+                <app-followup-appointment
+                 [appointment]="this.data.appointment"
+                 #followupAppointment
+                 ></app-followup-appointment> 
+                 <button mat-button matStepperPrevious>Back</button>
+                 <button mat-raised-button color="primary" (click)="saveAppointment()" matStepperNext  [disabled]="!this.followupAppointment.selectedDate">Next</button>
+              </mat-step>
+            }
+                <mat-step>
+                  <ng-template matStepLabel>Done</ng-template>
+                  <app-document-download
+                  #documentdownload
+                  (prescriptionRequested)="generatePrescription()"
+                  ></app-document-download>
+                  
+                <div class="d-flex justify-between mt-2">
+                  <button mat-button matStepperPrevious>Back</button>
+                  <button mat-raised-button color="accent" (click)="stepper.reset()">Reset</button>
+                </div>
+              </mat-step>
+            </mat-horizontal-stepper>
+          </mat-dialog-content>
+  
+  
+         
+      </form>
+    </div>
+  </div>

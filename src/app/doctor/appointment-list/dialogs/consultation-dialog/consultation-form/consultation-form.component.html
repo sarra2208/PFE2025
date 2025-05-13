@@ -1,0 +1,21 @@
+
+    
+   
+    <form  class="pd" >
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Notes</mat-label>
+        <textarea
+        matInput
+        rows="6"
+        placeholder="Enter consultation notes..."
+        type="text"
+        #notes
+      ></textarea>
+        <mat-error *ngIf="consultationForm.get('notes')?.hasError('required')">
+          Notes are required
+        </mat-error>
+      </mat-form-field>
+  
+      
+      </form>
+

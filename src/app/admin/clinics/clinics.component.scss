@@ -1,0 +1,27 @@
+.clinic-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #eee;
+  }
+  
+  .table-img {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  /* Style pour les écrans mobiles */
+  @media (max-width: 768px) {
+    .clinic-image {
+      width: 30px;
+      height: 30px;
+    }
+    
+    .mobile-label {
+      display: inline-block;
+      width: 80px;
+      font-weight: 500;
+    }
+  }

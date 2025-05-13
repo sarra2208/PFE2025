@@ -1,0 +1,103 @@
+<div class="addContainer">
+  <div class="modalHeader">
+    <div class="editRowModal">
+      <div class="modalHeader clearfix">
+        <div class="modal-about">
+          {{ dialogTitle }}
+        </div>
+      </div>
+    </div>
+    <button mat-icon-button (click)="dialogRef.close()" class="modal-close-button" aria-label="Close dialog">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div mat-dialog-content>
+    <form class="register-form m-4" [formGroup]="serviceStaffForm" (ngSubmit)="submit()">
+      <div class="row">
+        <!-- Service ID -->
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Service</mat-label>
+            <mat-select formControlName="serviceId" required>
+              @for (service of ServicesNames; track service.id) {
+                <mat-option [value]="service.id">
+                  {{ service.name }}
+                </mat-option>
+              }
+            </mat-select>
+            <mat-icon matSuffix>business</mat-icon>
+            @if (serviceStaffForm.get('serviceId')?.hasError('required')) {
+              <mat-error>Service is required</mat-error>
+            }
+          </mat-form-field>
+        </div>
+
+        <!-- Staff ID -->
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Staff</mat-label>
+            <mat-select formControlName="staffId" required>
+              @for (staff of staffNames; track staff[0]) {
+                <mat-option [value]="staff[0]">
+                  {{ staff[1] }}
+                </mat-option>
+              }
+            </mat-select>
+            @if (serviceStaffForm.get('staffId')?.hasError('required')) {
+              <mat-error>Staff is required</mat-error>
+            }
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <!-- Shift Schedule Date -->
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Shift Schedule</mat-label>
+            <input
+              matInput
+              placeholder="e.g. mon-fri 8:00-17:00"
+              formControlName="shiftSchedule"
+              required
+            />
+            @if(serviceStaffForm.get('shiftSchedule')?.invalid && serviceStaffForm.get('shiftSchedule')?.touched){
+            <mat-error >
+              Format invalide. Exemple : mon-fri 8:00-17:00
+            </mat-error>
+          }
+          </mat-form-field>
+          
+        </div>
+
+     
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Status</mat-label>
+            <mat-select formControlName="status" required>
+              @for (status of statusOptions; track status) {
+                <mat-option [value]="status">{{ status }}</mat-option>
+              }
+            </mat-select>
+            <mat-icon matSuffix>status</mat-icon>
+            @if (serviceStaffForm.get('status')?.hasError('required')) {
+              <mat-error>Status is required</mat-error>
+            }
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+          <div class="example-button-row" align="end">
+            <button mat-raised-button color="primary" [disabled]="!serviceStaffForm.valid" type="submit">
+              Save
+            </button>
+            <button mat-raised-button color="warn" type="button" (click)="onNoClick()">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

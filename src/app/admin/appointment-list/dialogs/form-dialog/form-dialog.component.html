@@ -1,0 +1,149 @@
+<div class="addContainer">
+  <div class="modalHeader">
+    <div class="editRowModal">
+      <div class="modalHeader d-flex align-items-center">
+        <div>
+          <div class="modal-about">{{ dialogTitle }}</div>
+          @if(action === 'edit'){
+          <div class="text-muted small">ID: {{ data.appointment.id }}</div>
+          }
+        </div>
+      </div>
+    </div>
+    
+    <button mat-icon-button (click)="dialogRef.close()" class="modal-close-button" aria-label="Close dialog">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div mat-dialog-content>
+    <form class="register-form m-4" [formGroup]="appointmentForm" (ngSubmit)="submit()">
+      <div class="row">
+        <!-- Service Staff ID -->
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Service Staff ID</mat-label>
+            <input matInput formControlName="serviceStaffId" required>
+            @if(appointmentForm.get('serviceStaffId')?.hasError('required')){
+            <mat-error>
+              Service Staff ID is required
+            </mat-error>
+            }
+          </mat-form-field>
+        </div>
+
+        <!-- Patient ID -->
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Patient ID</mat-label>
+            <input matInput formControlName="patientId" required>
+            @if(appointmentForm.get('patientId')?.hasError('required')){
+            <mat-error>
+              Patient ID is required
+            </mat-error>
+            }
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <!-- Description -->
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Description</mat-label>
+            <textarea matInput formControlName="description" required></textarea>
+            @if(appointmentForm.get('description')?.hasError('required')){
+            <mat-error>
+              Description is required
+            </mat-error>
+            }
+          </mat-form-field>
+        </div>
+
+        <!-- Type -->
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Type</mat-label>
+            <input matInput formControlName="type" required>
+            @if(appointmentForm.get('type')?.hasError('required')){
+            <mat-error>
+              Type is required
+            </mat-error>
+            }
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <!-- Status -->
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Status</mat-label>
+            <mat-select formControlName="status" required>
+              @for (status of statusList; track $index) {
+                <mat-option [value]="status">{{status}}</mat-option>
+              }
+         
+             
+            </mat-select>
+            @if(appointmentForm.get('status')?.hasError('required')){
+            <mat-error>
+              Status is required
+            </mat-error>
+            }
+          </mat-form-field>
+        </div>
+        <!-- Date -->
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Date</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="date" required>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            @if(appointmentForm.get('date')?.hasError('required')){
+            <mat-error>
+              Date is required
+            </mat-error>
+            }
+          </mat-form-field>
+        </div>
+   
+        
+      </div>
+
+      <div class="row">
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+          <mat-form-field class="example-full-width " appearance="outline">
+            <mat-label>Start date</mat-label>
+            <input matInput formControlName="startDate" [owlDateTimeTrigger]="startDate" [owlDateTime]="startDate"
+              placeholder="Choose a date" required>
+            <mat-icon matSuffix [owlDateTimeTrigger]="startDate" class="date-icon">today</mat-icon>
+            <owl-date-time #startDate></owl-date-time>
+            <mat-error *ngIf="appointmentForm.get('startDate')?.hasError('required')">Required field</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+          <mat-form-field class="example-full-width " appearance="outline">
+            <mat-label>End date</mat-label>
+            <input matInput formControlName="endDate" [owlDateTimeTrigger]="endDate" [owlDateTime]="endDate"
+              placeholder="Choose a date" required>
+            <mat-icon matSuffix [owlDateTimeTrigger]="endDate" class="date-icon">today</mat-icon>
+            <owl-date-time #endDate></owl-date-time>
+            <mat-error *ngIf="appointmentForm.get('endDate')?.hasError('required')">Required field</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+          <div class="example-button-row" align="end">
+            <button mat-raised-button color="primary" [disabled]="!appointmentForm.valid" [mat-dialog-close]="1"
+              (click)="confirmAdd()">Save</button>
+            <button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

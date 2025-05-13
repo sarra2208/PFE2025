@@ -1,0 +1,143 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+  
+      <app-breadcrumb [title]="'Settings'" [items]="['Home']" [active_item]="'Settings'">
+      </app-breadcrumb>
+    </div>
+   
+ 
+
+  <form [formGroup]="patientForm">
+  <div class="card">
+    <div class="header">
+      <h2><strong>Patient</strong> Information</h2>
+    </div>
+    <div class="body">
+
+      <!-- Personal Details -->
+      <h5 class="mt-3 mb-2"><strong>Personal Details</strong></h5>
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="w-100 mb-3">
+            <mat-label>First Name</mat-label>
+            <input matInput formControlName="firstName">
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="w-100 mb-3">
+            <mat-label>Last Name</mat-label>
+            <input matInput formControlName="lastName">
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="w-100 mb-3">
+            <mat-label>Date of Birth</mat-label>
+            <input matInput [matDatepicker]="dobPicker" formControlName="birthdate">
+            <mat-datepicker-toggle matSuffix [for]="dobPicker"></mat-datepicker-toggle>
+            <mat-datepicker #dobPicker></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="w-100 mb-3">
+            <mat-label>Gender</mat-label>
+            <mat-select formControlName="gender">
+              <mat-option value="MALE">Male</mat-option>
+              <mat-option value="FEMALE">Female</mat-option>
+        
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="w-100 mb-3">
+            <mat-label>Blood Group</mat-label>
+            <mat-select formControlName="blobGroup">
+              <mat-option value="A-">A-</mat-option>
+              <mat-option value="A+">A+</mat-option>
+              <mat-option value="B-">B-</mat-option>
+              <mat-option value="B+">B+</mat-option>
+              <mat-option value="AB-">AB-</mat-option>
+              <mat-option value="AB+">AB+</mat-option>
+              <mat-option value="O-">O-</mat-option>
+              <mat-option value="O+">O+</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!-- Contact & Identity -->
+      <h5 class="mt-4 mb-2"><strong>Contact & Identity</strong></h5>
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="w-100 mb-3">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email">
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="w-100 mb-3">
+            <mat-label>Mobile</mat-label>
+            <input matInput formControlName="mobile">
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="w-100 mb-3">
+            <mat-label>Insurance ID</mat-label>
+            <input matInput formControlName="insuranceID">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!-- Physical Info -->
+      <h5 class="mt-4 mb-2"><strong>Physical Info</strong></h5>
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="w-100 mb-3">
+            <mat-label>Height (cm)</mat-label>
+            <input matInput type="number" formControlName="height">
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="w-100 mb-3">
+            <mat-label>Weight (kg)</mat-label>
+            <input matInput type="number" formControlName="weight">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!-- Image Upload -->
+      <h5 class="mt-4 mb-2"><strong>Patient Photo</strong></h5>
+      <div class="row">
+        <div class="col-md-12">
+          <app-file-upload formControlName="uploadImg"></app-file-upload>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="row">
+        <div class="col-12 mt-3 text-end">
+          <button mat-raised-button color="primary" (click)="save()" type="submit">Save Patient</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</form>
+
+ <div class="card">
+      <div class="header">
+        <h2>
+         
+          <strong>Security</strong> Settings</h2>
+      </div>
+      <div class="body">
+     
+          <button mat-raised-button color="primary" (click)="securitySettings()"> change password</button>
+      </div>
+    </div>
+
+  </div>
+</section>

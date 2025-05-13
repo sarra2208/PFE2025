@@ -1,0 +1,40 @@
+.compact-icon {
+    font-size: 16px;
+    color: #666;
+    vertical-align: middle;
+}
+
+.status-badge {
+    padding: 3px 8px;
+    font-size: 0.8rem;
+    border-radius: 10px;
+}
+
+.dense-field .mat-form-field-wrapper {
+    padding-bottom: 0.5em;
+}
+
+.mat-form-field-appearance-outline.dense-field .mat-form-field-infix {
+    padding: 0.4em 0;
+    font-size: 0.85em;
+}
+
+.compact-button {
+    padding: 6px 16px;
+    font-size: 0.85rem;
+}
+
+.card-header {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.mat-body-2 {
+    font-size: 0.9rem !important;
+}
+
+
+@media (max-width: 768px) {
+    .d-flex.flex-wrap > div {
+      flex: 1 1 100%;
+    }
+  }

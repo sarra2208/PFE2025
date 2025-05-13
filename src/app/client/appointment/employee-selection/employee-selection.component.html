@@ -1,0 +1,59 @@
+<div class="row" #more>
+  @defer(on viewport(more)){ 
+    @for (employee of employees; track employee.id) {
+      <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+        <mat-card
+          class="employee-card"
+          [ngClass]="{ 'selected': selectedEmployeeId === employee.id }"
+          (click)="selectEmployee(employee.id,employee.firstName+' '+employee.lastName)"
+        >
+          <mat-card-header>
+            <div mat-card-avatar class="employee-avatar-wrapper">
+              <img
+                [src]="employee.imageDir || employeeDefaultImage"
+                alt="Employee Image"
+                class="employee-avatar"
+              />
+            </div>
+            <mat-card-title>{{ employee.firstName }} {{ employee.lastName }}</mat-card-title>
+            <mat-card-subtitle>
+              <mat-icon class="me-1 icon-muted">email</mat-icon>
+              {{ employee.email }}
+            </mat-card-subtitle>
+          </mat-card-header>
+        </mat-card>
+      </div>
+    }
+  @empty {
+    <p class="text-muted">No Doctors found.</p>
+  }
+}
+@placeholder{<h1>Loading …</h1>}
+@error { <h1 class="danger">Load data failure </h1> } 
+  </div>
+  
+<!-- 
+  <div class="body">
+  <div class="card border-apply">
+    <div class="m-b-20">
+      <div class="contact-grid">
+        <div class="profile-header l-bg-purple-dark">
+          <div class="user-name">Pooja Patel</div>
+          <div class="name-center">General Manager</div>
+        </div>
+        <img src="assets/images/user/usrbig1.jpg" class="user-img" alt="">
+        <p>
+          A-103, shyam gokul flats, Mahatma Road
+          <br />Mumbai
+        </p>
+        <div>
+          <span class="phone">
+            <i class="material-icons">phone</i>264-625-2583</span>
+        </div>
+        <div class="profile-userbuttons">
+          <button mat-flat-button color="primary">Read More</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->

@@ -1,0 +1,21 @@
+<div class="deleteContainer">
+  <div class="modalHeader">
+    <div class="editRowModal">
+      <div class="modalHeader clearfix">
+        <div class="modal-about">Delete Assignment</div>
+      </div>
+    </div>
+    <button mat-icon-button (click)="onNoClick()" class="modal-close-button" aria-label="Close dialog">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div mat-dialog-content>
+    <p>Are you sure you want to delete this assignment (Service: {{ data.serviceId }}, Staff: {{ data.staffId }})?</p>
+  </div>
+
+  <div mat-dialog-actions align="end">
+    <button mat-raised-button color="warn" (click)="confirmDelete()">Delete</button>
+    <button mat-raised-button color="primary" (click)="onNoClick()">Cancel</button>
+  </div>
+</div>

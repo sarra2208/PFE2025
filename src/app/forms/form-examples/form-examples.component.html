@@ -1,0 +1,110 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <app-breadcrumb 
+        [title]="'Clinics Management'" 
+        [items]="['Home','Clinics']" 
+        [active_item]="'Clinic Form'">
+      </app-breadcrumb>
+    </div>
+
+    <div class="row clearfix">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="card">
+          <div class="header d-flex align-items-center justify-content-between">
+            <div class="d-flex align-items-center">
+              <img [src]="clinics?.imageDir || imageByDefault" alt="avatar" height="50" width="50" class="rounded-circle me-2" />
+            
+            </div>
+          </div>
+
+          <div class="body">
+            <form class="register-form m-4" [formGroup]="clinicsForm" (ngSubmit)="submit()">
+              <div class="row">
+                <!-- Clinic Name -->
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Clinic Name</mat-label>
+                    <input matInput formControlName="name" required>
+                    <mat-icon matSuffix>business</mat-icon>
+                    @if(clinicsForm.get('name')?.hasError('required')) {
+                      <mat-error>Clinic Name is required</mat-error>
+                    }
+                  </mat-form-field>
+                </div>
+
+                <!-- Address -->
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Address</mat-label>
+                    <input matInput formControlName="address" required>
+                    <mat-icon matSuffix>location_on</mat-icon>
+                    @if(clinicsForm.get('address')?.hasError('required')) {
+                      <mat-error>Address is required</mat-error>
+                    }
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="row">
+                <!-- Email -->
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input matInput formControlName="email" required>
+                    <mat-icon matSuffix>email</mat-icon>
+                    @if(clinicsForm.get('email')?.hasError('required')) {
+                      <mat-error>Email is required</mat-error>
+                    }
+                    @if(clinicsForm.get('email')?.hasError('email')) {
+                      <mat-error>Enter a valid email</mat-error>
+                    }
+                  </mat-form-field>
+                </div>
+
+                <!-- Phone -->
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Phone</mat-label>
+                    <input matInput formControlName="phone" type="tel" inputmode="tel" pattern="^\+?[0-9]*$" (keypress)="validatePhoneKey($event)" required>
+                    <mat-icon matSuffix>phone</mat-icon>
+                    @if(clinicsForm.get('phone')?.hasError('required')) {
+                      <mat-error>Phone is required</mat-error>
+                    }
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <!-- Upload image -->
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                  <mat-label>Upload Image</mat-label>
+                  <app-file-upload 
+                    formControlName="uploadImg"
+                    (change)="onChangeImg()">
+                  </app-file-upload>
+                  @if ((imageFile && imageFile.size > maxSizeInOct ) || imgError) {
+                    <div class="error-message text-danger">
+                      That image is too large (max {{ maxSizeInMB }} MB). Please choose another one.
+                    </div>
+                  }
+                </div>
+              </div>
+
+              <!-- Buttons -->
+              <div class="row">
+                <div class="col-xl-12">
+                  <div class="text-end">
+                    <button mat-raised-button color="primary" [disabled]="!clinicsForm.valid" type="submit">Save</button>
+                  
+                  </div>
+                </div>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

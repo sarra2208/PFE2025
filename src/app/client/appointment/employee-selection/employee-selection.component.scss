@@ -1,0 +1,31 @@
+
+.employee-card {
+    cursor: pointer;
+    transition: box-shadow 0.3s ease;
+    border: 2px solid transparent;
+    border-radius: 12px;
+  }
+  
+  .employee-card:hover {
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+    background-color: #f0f8ff;
+  }
+  
+  .employee-card.selected {
+    border-color: #1976d2;
+    box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.5);
+  }
+  
+  .employee-avatar-wrapper {
+    width: 70px;
+    height: 70px;
+    overflow: hidden;
+    border-radius: 50%;
+  }
+  
+  .employee-avatar {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  

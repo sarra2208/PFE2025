@@ -1,0 +1,75 @@
+.text-dark-yellow {
+    color: #eab634 !important; 
+  }
+  .badge {
+    padding: 4px 8px;
+    border-radius: 12px;
+    color: white;
+    font-weight: 500;
+    font-size: 0.85rem;
+  }
+  
+  .badge-info {
+    background-color: #17a2b8;
+  }
+  
+  .badge-warning {
+    background-color: #ffc107;
+    color: #212529;
+  }
+  
+  .badge-success {
+    background-color: #28a745;
+  }
+  
+  .badge-danger {
+    background-color: #dc3545;
+  }
+  
+  .badge-secondary {
+    background-color: #6c757d;
+  }
+  
+
+
+
+  .datetime-cell {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: flex-start;
+  }
+  
+  .date-block, .time-block {
+    display: flex;
+    align-items:start !important;
+  }
+  
+  .date-icon,
+  .time-icon {
+    margin-right: 6px;
+    font-size: 1rem;
+  }
+  
+  .date-icon {
+    color: #3f51b5;
+  }
+  
+  .time-icon {
+    color: #009688;
+  }
+  
+
+  .time-block.nowrap {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .datetime-cell span {
+    font-weight: 500;
+    font-size: 0.85rem;
+  }
+  
+
+  

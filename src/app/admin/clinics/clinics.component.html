@@ -1,0 +1,208 @@
+<section class="content">
+    <div class="content-block">
+      <div class="block-header">
+    
+        <app-breadcrumb 
+          [title]="'Clinics List'" 
+          [items]="['Admin']" 
+          [active_item]="'Clinics'">
+        </app-breadcrumb>
+      </div>
+      
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="materialTableHeader">
+              <div class="left">
+                <ul class="header-buttons-left ms-0">
+                  <li class="tbl-title">
+                    <h2>Clinics</h2> 
+                  </li>
+                  <li class="tbl-search-box">
+                    <label for="search-input">
+                      <i class="material-icons search-icon">search</i>
+                    </label>
+                    <input 
+                      placeholder="Search clinics..." 
+                      type="text" 
+                      #filter 
+                      class="browser-default search-field"
+                      aria-label="Search clinics">
+                  </li>
+                </ul>
+              </div>
+              
+              <div class="right">
+                <ul class="tbl-export-btn">
+                  <li class="tbl-header-btn">
+                    <div class="m-l-10" matTooltip="Add new clinic">
+                      <button mat-mini-fab color="primary" (click)="addNew()">
+                        <mat-icon class="col-white">add</mat-icon>
+                      </button>
+                    </div>
+                  </li>
+                  
+                  <li class="tbl-header-btn">
+                    <div class="m-l-10" matTooltip="Refresh data">
+                      <button mat-mini-fab color="primary" (click)="refresh()">
+                        <mat-icon class="col-white">refresh</mat-icon>
+                      </button>
+                    </div>
+                  </li>
+                  
+                  <li class="tbl-header-btn">
+                    <div class="m-l-10" [hidden]="!selection.hasValue()" matTooltip="Delete selected">
+                      <button mat-mini-fab color="warn" (click)="removeSelectedRows()">
+                        <mat-icon class="col-white">delete</mat-icon>
+                      </button>
+                    </div>
+                  </li>
+                  
+                  <li>
+                    <div class="export-button m-l-10" matTooltip="Export to Excel">
+                      <img src="assets/images/icons/xlsx.png" alt="Export Excel" (click)="exportExcel()">
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            
+            <div class="body overflow-auto">
+              <div class="responsive_table">
+                <table mat-table [dataSource]="dataSource" matSort class="mat-cell advance-table">
+              
+           
+                  
+                  <ng-container matColumnDef="select">
+                    <mat-header-cell *matHeaderCellDef class="tbl-col-width-per-6">
+                      <mat-checkbox 
+                        (change)="$event ? masterToggle() : null"
+                        [checked]="selection.hasValue() && isAllSelected()"
+                        [indeterminate]="selection.hasValue() && !isAllSelected()"
+                        class="tbl-checkbox">
+                      </mat-checkbox>
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row" class="tbl-col-width-per-6">
+                      <mat-checkbox 
+                        (click)="$event.stopPropagation()" 
+                        (change)="$event ? selection.toggle(row) : null"
+                        [checked]="selection.isSelected(row)"
+                        class="tbl-checkbox">
+                      </mat-checkbox>
+                    </mat-cell>
+                  </ng-container>
+                  
+                  <!-- Colonne ID -->
+                  <ng-container matColumnDef="id">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
+                    <mat-cell *matCellDef="let row" class="column-nowrap">
+                      <span class="truncate-text">
+                        <span class="mobile-label">ID:</span>{{ row.id }}
+                      </span>
+                    </mat-cell>
+                  </ng-container>
+                  
+
+                  
+                  
+                  <!-- Colonne Nom -->
+                  <ng-container matColumnDef="name">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Clinic Name</mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                      <span class="mobile-label">Name:</span>{{row.name}}
+                    </mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="imageDir">
+                    <mat-header-cell *matHeaderCellDef class="tbl-col-width-per-7">Image</mat-header-cell>
+                    <mat-cell *matCellDef="let row" class="table-img tbl-col-width-per-7">
+                      <span class="mobile-label">Image:</span>
+                      <img [src]="row.imageDir || 'assets/images/default-clinic.png'" 
+                           alt="Clinic image" 
+                           class="clinic-image" />
+                    </mat-cell>
+                  </ng-container>
+                  
+                  <!-- Colonne Adresse -->
+                  <ng-container matColumnDef="address">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Address</mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                      <span class="mobile-label">Address:</span>{{row.address}}
+                    </mat-cell>
+                  </ng-container>
+                  
+                  <!-- Colonne Téléphone -->
+                  <ng-container matColumnDef="phone">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Phone</mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                      <span class="mobile-label">Phone:</span>{{row.phone}}
+                    </mat-cell>
+                  </ng-container>
+                  
+                  <!-- Colonne Email -->
+                  <ng-container matColumnDef="email">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Email</mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                      <span class="mobile-label">Email:</span>{{row.email}}
+                    </mat-cell>
+                  </ng-container>
+                  
+                  <!-- Colonne Actions -->
+                  <ng-container matColumnDef="actions">
+                    <mat-header-cell *matHeaderCellDef class="pr-0">Actions</mat-header-cell>
+                    <mat-cell *matCellDef="let row" class="pr-0">
+                      <button mat-icon-button color="accent" 
+                        (click)="editCall(row); $event.stopPropagation()"
+                        class="tbl-action-btn" 
+                        matTooltip="Edit">
+                        <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
+                      </button>
+                      <button mat-icon-button color="accent" 
+                        (click)="deleteItem(row.id, row); $event.stopPropagation()"
+                        class="tbl-action-btn" 
+                        matTooltip="Delete">
+                        <app-feather-icons [icon]="'trash-2'" [class]="'tbl-fav-delete'"></app-feather-icons>
+                      </button>
+                    </mat-cell>
+                  </ng-container>
+                  
+                  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                  <mat-row *matRowDef="let row; columns: displayedColumns;" 
+                           (click)="editCall(row)"
+                           [style.cursor]="'pointer'" 
+                           matRipple>
+                  </mat-row>
+                </table>
+                
+                <!-- Spinner de chargement -->
+                @if (exampleDatabase?.isTblLoading) {
+                  <div class="tbl-spinner">
+                    <mat-progress-spinner 
+                      color="primary" 
+                      [diameter]="40" 
+                      mode="indeterminate">
+                    </mat-progress-spinner>
+                  </div>
+                }
+                
+                <!-- Aucun résultat -->
+                @if (!exampleDatabase?.isTblLoading && dataSource.filteredData.length === 0) {
+                  <div class="no-results">
+                    No clinics found
+                  </div>
+                }
+                
+                <!-- Pagination -->
+                <mat-paginator 
+                  #paginator 
+                  [length]="dataSource.filteredData.length" 
+                  [pageIndex]="0" 
+                  [pageSize]="10"
+                  [pageSizeOptions]="[5, 10, 25, 100]">
+                </mat-paginator>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

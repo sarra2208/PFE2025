@@ -1,0 +1,111 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <app-breadcrumb [title]="'Appointment'" [items]="['appointment']" [active_item]="'Book an Appointment'"></app-breadcrumb>
+    </div>
+    <div class="row clearfix">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="card">
+          <div class="header">
+            <h2><strong>Book an Appointment</strong></h2>
+          </div>
+          <div class="body">
+            <mat-stepper [linear]="isLinear" #stepper>
+              <mat-step [stepControl]="firstFormGroup">
+                <form [formGroup]="firstFormGroup">
+                  <ng-template matStepLabel>Choose Clinic</ng-template>
+                  <app-clinic-selection 
+                    [clinics]="clinics"
+                    [selectedClinicId]="selectedClinicId"
+                    (clinicSelected)="onClinicSelected($event)">
+                  </app-clinic-selection>
+                  <div>
+                    <button mat-button matStepperNext (click)="getServicesByClinicId()" [disabled]="nextButtonDisabled">Next</button>
+                  </div>
+                </form>
+              </mat-step>
+            
+              <mat-step [stepControl]="secondFormGroup" label="Choose Service">
+                <form [formGroup]="secondFormGroup">              
+                  @if(selectedClinicId) {
+                    <app-service-selection
+                      [services]="services"
+                      [selectedServiceId]="selectedServiceId"
+                      (serviceSelected)="onServiceSelected($event)">
+                    </app-service-selection>
+                  } @else {
+                    <p class="text-muted">Choose Clinic first</p>
+                  }             
+                  <div>
+                    <button mat-button matStepperPrevious (click)="unable_next_btn()">Back</button>
+                    <button mat-button matStepperNext (click)="getStaffByServiceId()" [disabled]="nextButtonDisabled">Next</button>
+                  </div>
+                </form>
+              </mat-step>            
+              
+              <mat-step [stepControl]="thirdFormGroup" label="Choose Doctor">
+                <form [formGroup]="thirdFormGroup">
+                  @if(selectedClinicId && selectedServiceId){ 
+                    <app-employee-selection
+                      [employees]="employees"
+                      [selectedEmployeeId]="selectedEmployeeId"
+                      [selectedServiceId]="selectedServiceId"
+                      [listOfStaffId]="listOfStaffId"
+                      (employeeSelected)="onEmployeeSelected($event)">
+                    </app-employee-selection>
+                  } @else {
+                    <p class="text-muted">Choose Service first</p>
+                  } 
+                  <div>
+                    <button mat-button matStepperPrevious (click)="unable_next_btn()">Back</button>
+                    <button mat-button matStepperNext [disabled]="nextButtonDisabled" (click)="getunAvailableDates()">Next</button>
+                  </div>
+                </form>
+              </mat-step>           
+
+              <mat-step [stepControl]="fourthFormGroup" label="Choose Date">
+                @if(selectedClinicId && selectedServiceId && selectedEmployeeId){ 
+                  <app-choose-date   
+                    [unAvailableDates]="unAvailableDates"
+                    [shiftSchedule]="shiftSchedule"
+                  
+                    (selectedDate)="onDateSelected($event)"
+                    (getServiceSchedules)="getServiceSchedules($event)"
+                    (getTime)="getTime($event)">
+                  </app-choose-date>
+                } @else {
+                  <p class="text-muted">Choose Doctor first</p>
+                } 
+                <div>
+                  <button mat-button matStepperPrevious (click)="unable_next_btn()">Back</button>
+                  <button mat-button matStepperNext [disabled]="nextButtonDisabled" (click)="saveAppointment()">Next</button>
+                </div>
+              </mat-step>
+
+              <mat-step>
+                <ng-template matStepLabel>Done</ng-template>
+                @if(selectedClinicId && selectedServiceId && selectedEmployeeId && selectedDate){
+                  <app-submit-page
+                    [selectedDate]="selectedDate"
+                    [serviceStaffId]="serviceStaffId!"
+                    [selectedServiceId]="selectedServiceId"
+                    [selectedEmployeeId]="selectedEmployeeId"
+                    [staffName]="staffName!"
+                    [serviceName]="serviceName!"
+                    (completeAppointment)="onCompleteAppointment($event)"> 
+                  </app-submit-page>
+                } @else {
+                  <p class="text-muted">Complete all steps first</p>
+                }
+                <div>
+                  <button mat-button matStepperPrevious (click)="unable_next_btn()">Back</button>
+                  <button mat-button (click)="resetStepper()">Reset</button>
+                </div>
+              </mat-step>
+            </mat-stepper>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
