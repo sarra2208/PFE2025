@@ -65,7 +65,7 @@ export function createTranslateLoader(http: HttpClient) {
         { provide: LocationStrategy, useClass: HashLocationStrategy },
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-       {provide: APP_INITIALIZER, useFactory: kcFactory, multi: true, deps: [KeycloakService] },
+       //{provide: APP_INITIALIZER, useFactory: kcFactory, multi: true, deps: [KeycloakService] },
       
     ],
     bootstrap: [AppComponent],

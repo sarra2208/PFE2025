@@ -3,7 +3,7 @@ import { Component, Inject } from '@angular/core';
 import { CalendarService } from '../../calendar.service';
 import { UntypedFormControl, Validators, UntypedFormGroup, UntypedFormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { OwlDateTimeModule } from '@danielmoncada/angular-datetime-picker';
+//import { OwlDateTimeModule } from '@danielmoncada/angular-datetime-picker';
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
@@ -11,6 +11,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { Appointment } from 'app/calendar/calendar.model';
+import { CommonModule } from '@angular/common';
 
 export interface DialogData {
   action: string;
@@ -24,6 +25,7 @@ export interface DialogData {
     standalone: true,
     imports: [
         MatButtonModule,
+        CommonModule,
         MatIconModule,
         MatDialogContent,
         FormsModule,
@@ -32,7 +34,7 @@ export interface DialogData {
         MatInputModule,
         MatSelectModule,
         MatOptionModule,
-        OwlDateTimeModule,
+        //OwlDateTimeModule,
     ],
 })
 export class FormDialogComponent {

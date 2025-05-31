@@ -17,4 +17,10 @@ export class Page500Component {
   constructor() {
     // constructor code
   }
+  ngOnInit(): void {
+    console.log("hello from page 500 ");
+  
+    
+
+  }
 }

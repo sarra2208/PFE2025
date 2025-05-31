@@ -1,67 +1,57 @@
-<div class="container mt-5" #more >
-  @defer(on viewport(more)){ 
-  <div class="row g-4" (load)="onDateChange()" >
+<div class="container mt-5">
+  <div class="row g-4">
 
- 
+    <!-- Calendar Section -->
     <div class="col-lg-4">
-      
       <mat-card class="calendar-card p-3 shadow rounded-4">
-        
-        <mat-calendar [(selected)]="selected" 
-        (selectedChange)="onDateChange()" 
-          [maxDate]="maxDate" [minDate]="minDate"  
+        <mat-calendar
+          [(selected)]="selected"
+          (selectedChange)="onDateChange()"
+          [maxDate]="maxDate"
+          [minDate]="minDate"
           [dateClass]="highlightWeekends"
-          [dateFilter]="dateFilter"
-         
-
-         
-          ></mat-calendar>
+          [dateFilter]="dateFilter">
+        </mat-calendar>
       </mat-card>
     </div>
 
-   
+    <!-- Time Slots Section -->
     <div class="col-lg-8">
       <div class="card p-4 shadow rounded-4 h-100">
         <h5 class="mb-3 fw-semibold">Available Time Slots</h5>
-        
-        <div class="d-flex flex-wrap gap-2">   
-          @if(selected){ 
-          @for (slot of timeSlots; track $index) {
-            <button type="button" 
-            (click)="onTimeSlotSelected(slot[0], slot[1], $index)" 
-            class="btn time-slot-btn"
-            [ngClass]="{
-              'btn-outline-primary': !isUnAvailableTimeSlot(slot[0], slot[1]),
-              'btn-outline-danger': isUnAvailableTimeSlot(slot[0], slot[1]),
-              'active': isSelectedSlot(slot[0])
-            }"
-            [disabled]="isUnAvailableTimeSlot(slot[0], slot[1])">
-            {{ slot[0] }}
-          </button>
-          }
-          @empty {<p class="text-muted">All time slots are available for this date.</p> }
 
-          }@else {
-            <p class="text-muted">Select a date first to see available time slots.</p> 
-          }
-
-       
+        <div class="d-flex flex-wrap gap-2">
+          <ng-container *ngIf="selected; else noDateSelected">
+            <ng-container >
+              <button
+                *ngFor="let slot of timeSlots; let i = index"
+                type="button"
+                class="btn time-slot-btn"
+                (click)="onTimeSlotSelected(slot[0], slot[1], i)"
+                [ngClass]="{
+                  'btn-outline-primary': !isUnAvailableTimeSlot(slot[0], slot[1]),
+                  'btn-outline-danger': isUnAvailableTimeSlot(slot[0], slot[1]),
+                  'active': isSelectedSlot(slot[0])
+                }"
+                [disabled]="isUnAvailableTimeSlot(slot[0], slot[1])">
+                {{ slot[0] }}
+              </button>
+            </ng-container>
+            <ng-template #noSlots>
+              <p class="text-muted">All time slots are available for this date.</p>
+            </ng-template>
+          </ng-container>
+          <ng-template #noDateSelected>
+            <p class="text-muted">Select a date first to see available time slots.</p>
+          </ng-template>
         </div>
-        <p class="  fw-medium">
-          {{ date | date: "fullDate" }}
-          @if(date && time?.start) {
-            <span class="ms-2">at {{ time.start }}</span>
-          }
-        </p>
-        
-      
-     
-     
-      </div>
-    </div> 
-  </div>
-}  
-@placeholder{<h1>Loading …</h1>}
-@error { <h1 class="danger">Load data failure </h1> }
 
+        <p class="fw-medium mt-3">
+          {{ date | date: 'fullDate' }}
+          <span *ngIf="date && time?.start" class="ms-2">at {{ time.start }}</span>
+        </p>
+
+      </div>
+    </div>
+  </div>
 </div>

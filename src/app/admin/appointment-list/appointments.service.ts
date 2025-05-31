@@ -41,7 +41,9 @@ export class AppointmentsService extends UnsubscribeOnDestroyAdapter {
   }
 
   getAllAppointments(): void {
+    console.log('url: '+ this.API_URL)
     this.isTblLoading = true;
+    
     this.subs.sink = this.httpClient.get<Appointment[]>(this.API_URL,
          { headers: {  Authorization: `Bearer ${this.ks.getToken()}` } }
     ).subscribe({

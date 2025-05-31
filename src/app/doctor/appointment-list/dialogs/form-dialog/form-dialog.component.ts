@@ -12,7 +12,8 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { Subscription } from 'rxjs';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { OwlDateTimeModule, OwlNativeDateTimeModule } from '@danielmoncada/angular-datetime-picker';
+import { CommonModule } from '@angular/common';
+//import { OwlDateTimeModule, OwlNativeDateTimeModule } from '@danielmoncada/angular-datetime-picker';
 export interface DialogData {
   id: string;
   action: string;
@@ -29,6 +30,7 @@ export interface DialogData {
     MatButtonModule,
     MatIconModule,
     MatDialogContent,
+    CommonModule,
     FormsModule,
     ReactiveFormsModule,
     MatFormFieldModule,
@@ -38,8 +40,8 @@ export interface DialogData {
     MatOptionModule,
     MatSelectModule,
     MatSnackBarModule,
-    OwlDateTimeModule ,
-    OwlNativeDateTimeModule   
+    //OwlDateTimeModule ,
+    //OwlNativeDateTimeModule   
   ],
 })
 export class FormDialogComponent implements OnInit, OnDestroy {

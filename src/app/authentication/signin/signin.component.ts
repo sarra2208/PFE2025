@@ -25,7 +25,9 @@ export class SigninComponent  implements OnInit
 
   constructor(private ks: KeycloakService,private router: Router,private cookieService: CookieService) {}
   ngOnInit(): void {
-      const profileString = this.cookieService.get('profile') ;
+    console.log("hello from signng company ");
+  
+      /*const profileString = this.cookieService.get('profile') ;
      this.profile = profileString ? JSON.parse(profileString) : null;
     switch (this.profile?.role) {
       case Role.CompanyAdmin:
@@ -40,7 +42,9 @@ export class SigninComponent  implements OnInit
       default:
         this.router.navigate(['/authentication/page401']);
         break;    
-      }
+      }*/
+              this.router.navigate(['/admin/dashboard/main']);
+
 
   }
   private navigateBasedOnRoles(): void {

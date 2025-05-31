@@ -44,7 +44,7 @@ private subList: Subscription[] = [];
       //  this.router.navigate(['/']);
       }
     } catch (error) {
-      console.error('Keycloak initialization error:', error);
+      //console.error('Keycloak initialization error:', error);
       this.router.navigate(['/error']);
     }
   }

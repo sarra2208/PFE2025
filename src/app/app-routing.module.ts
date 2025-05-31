@@ -6,6 +6,9 @@ import { Role } from './core/models/role';
 import { AuthLayoutComponent } from './layout/app-layout/auth-layout/auth-layout.component';
 import { MainLayoutComponent } from './layout/app-layout/main-layout/main-layout.component';
 import { Page401Component } from './authentication/page401/page401.component';
+import { Dashboard2Component } from './admin/dashboard/dashboard2/dashboard2.component';
+import { DashboardComponent } from './client/dashboard/dashboard.component';
+import { AppointmentsComponent } from './admin/appointment-list/appointment-list.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/authentication/signin', pathMatch: 'full' },
@@ -13,7 +16,7 @@ const routes: Routes = [
     
     path: '',
     component: MainLayoutComponent,
-    canActivate: [authGuard],
+   // canActivate: [authGuard],
     children: [
       { 
         path: '', 
@@ -22,28 +25,28 @@ const routes: Routes = [
       },
       {
         path: 'admin',
-        canActivate: [authGuard],
+       // canActivate: [authGuard],
         data: { roles: [ Role.CompanyAdmin] },
         loadChildren: () =>
           import('./admin/admin.module').then((m) => m.AdminModule),
       },
       {
         path: 'employee',
-        canActivate: [authGuard],
+        //canActivate: [authGuard],
         data: { roles: [Role.Employee] },
         loadChildren: () =>
           import('./employee/employee.module').then((m) => m.EmployeeModule),
       },
       {
         path: 'client',
-        canActivate: [authGuard],
+       // canActivate: [authGuard],
         data: { roles: [Role.Client] },
         loadChildren: () =>
           import('./client/client.module').then((m) => m.ClientModule),
       },
       {
         path: 'doctor',
-        canActivate: [authGuard],
+       // canActivate: [authGuard],
        // data: { roles: [] },
         loadChildren: () =>
           import('./doctor/doctor.module').then((m) => m.DoctorModule),
@@ -51,7 +54,7 @@ const routes: Routes = [
    
       {
         path: 'calendar',
-        canActivate: [authGuard],
+        //canActivate: [authGuard],
         data: { roles: [Role.Client,Role.CompanyAdmin, Role.Client] },
         loadChildren: () =>
           import('./calendar/calendar.module').then((m) => m.CalendarsModule),
@@ -106,7 +109,14 @@ const routes: Routes = [
         (m) => m.AuthenticationModule
       ),
   },
- 
+ { 
+    path: 'dashboard', 
+    component:DashboardComponent
+  },
+  { 
+    path: 'appointment-list', 
+    component:AppointmentsComponent
+  },
   { 
     path: 'page401', 
     component: Page401Component 
